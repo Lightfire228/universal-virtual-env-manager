@@ -1,0 +1,2 @@
+[ ] optimize file searching by indexing on file / folder name, using a binary tree
+[ ] optimize memory allocation on `expand_tree`
