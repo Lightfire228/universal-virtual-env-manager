@@ -1,0 +1,4 @@
+File: 
+  path:   PathBuf
+  is_dir: bool
+  parent: Option<&File>

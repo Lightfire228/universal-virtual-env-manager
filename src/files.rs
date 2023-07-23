@@ -4,9 +4,10 @@ use std::io::Result;
 use std::fs;
 use std::env;
 
-mod node;
+pub type File  = PathBuf;
+pub type Files = Vec<File>;
 
-pub fn walk_dir(start: &PathBuf) -> Vec<PathBuf> {
+pub fn walk_path(start: &File) -> Files {
 
     start
         .ancestors()
@@ -15,9 +16,9 @@ pub fn walk_dir(start: &PathBuf) -> Vec<PathBuf> {
     
 }
 
-pub fn expand_tree(paths: &Vec<PathBuf>) -> Result<Box<Vec<PathBuf>>> {
+pub fn expand_tree(paths: &Files) -> Result<Files> {
 
-    let mut results: Box<Vec<PathBuf>> = Box::new(Vec::new());
+    let mut results: Files = Vec::new();
 
     for path in paths {
         for file in path.read_dir()? {
@@ -31,10 +32,6 @@ pub fn expand_tree(paths: &Vec<PathBuf>) -> Result<Box<Vec<PathBuf>>> {
 }
 
 
-pub fn get_cwd() -> Result<PathBuf> {
-    let e = env::current_dir()?;
-
-    println!("CWD: {}", e.to_str().unwrap());
-
-    Ok(e)
+pub fn get_cwd() -> Result<File> {
+    env::current_dir()
 }
