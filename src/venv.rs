@@ -22,15 +22,13 @@ pub trait VenvActions {
 
 impl Venv {
     pub fn check_all(self, files: &Files) -> Files {
-        let mut result: Files = Vec::new();
 
-        for f in files {
-            if self.actions.check_path(&f) {
-                result.push(f.to_path_buf());
-            }
-        }
-
-        result
+        files
+            .iter()
+            .filter(|&x| self.actions.check_path(&x))
+            .map   (| x| x.to_path_buf())
+            .collect::<Files>()
+        
     }
 }
 
